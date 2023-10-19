@@ -1,4 +1,4 @@
-package com.example.dronedashboard;
+package dronedashboard;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

@@ -1,4 +1,4 @@
-package com.example.dronedashboard;
+package dronedashboard;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
