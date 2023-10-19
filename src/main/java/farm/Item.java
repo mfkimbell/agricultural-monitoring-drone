@@ -1,4 +1,4 @@
 package farm;
 
-abstract class Item {
+public abstract class Item {
 }

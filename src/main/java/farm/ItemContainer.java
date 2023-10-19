@@ -1,4 +1,4 @@
 package farm;
 
-abstract class ItemContainer {
+public abstract class ItemContainer {
 }
