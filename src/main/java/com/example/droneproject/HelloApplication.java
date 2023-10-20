@@ -24,6 +24,35 @@ public class HelloApplication extends Application {
     }
 }
 
-class Hay extends Item {
+class OldMcDonald extends FarmObject {
     // An example implementation of the farm package
+    @Override
+    public void changeName() {
+
+    }
+
+    @Override
+    public void changePrice() {
+
+    }
+
+    @Override
+    public void changeLocationX() {
+
+    }
+
+    @Override
+    public void changeLocationY() {
+
+    }
+
+    @Override
+    public void changeLength() {
+
+    }
+
+    @Override
+    public void changeHeight() {
+
+    }
 }
