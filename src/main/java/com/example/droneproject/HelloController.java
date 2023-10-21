@@ -1,5 +1,8 @@
 package com.example.droneproject;
 
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -20,7 +23,7 @@ public class HelloController implements Initializable {
     @FXML
     private Label metric4;
     @FXML
-    private ListView<String> myListView;
+    private ListView<String> myListView = new ListView<>();
     //I cant figure out why this isn't referencing my id for my ListView pane
     @FXML
     protected void onHelloButtonClick() {
@@ -28,7 +31,8 @@ public class HelloController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<String> items = myListView.getItems();
         String[] food = {"pizza", "sushi","ramen"};
-        myListView.getItems().addAll(food);
+        items.addAll(food);
     }
 }
