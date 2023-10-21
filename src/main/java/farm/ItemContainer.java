@@ -16,9 +16,7 @@ public abstract class ItemContainer extends FarmObject {
         return this.items;
     }
     public void addItem(Item item){
-        System.out.println("We addin!");
         this.items.add(item);
-        System.out.println("We added!");
     };
     public void deleteItem(Item item){
         int index = items.indexOf(item);
