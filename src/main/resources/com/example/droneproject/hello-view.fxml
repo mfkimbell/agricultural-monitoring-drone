@@ -22,7 +22,7 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="288.0">
                      <children>
-                        <ListView id="myListView" layoutY="279.0" prefHeight="283.0" prefWidth="288.0" />
+                        <ListView fx:id="myListView" layoutY="279.0" prefHeight="283.0" prefWidth="288.0" />
                         <Text id="metric1" layoutX="14.0" layoutY="582.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Metric 1" />
                         <Text id="metric2" layoutX="14.0" layoutY="599.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Metric 2" />
                         <Text id="metric3" layoutX="14.0" layoutY="616.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Metric 3" />

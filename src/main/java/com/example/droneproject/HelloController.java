@@ -24,7 +24,6 @@ public class HelloController implements Initializable {
     private Label metric4;
     @FXML
     private ListView<String> myListView = new ListView<>();
-    //I cant figure out why this isn't referencing my id for my ListView pane
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to the Drone Application!");
