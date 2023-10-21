@@ -9,8 +9,16 @@ public abstract class ItemContainer extends FarmObject {
     protected ArrayList<Item> items;
 
     /* Methods */
+    public ArrayList<ItemContainer> getItemContainers() {
+        return this.itemContainers;
+    }
+    public ArrayList<Item> getItems() {
+        return this.items;
+    }
     public void addItem(Item item){
+        System.out.println("We addin!");
         this.items.add(item);
+        System.out.println("We added!");
     };
     public void deleteItem(Item item){
         int index = items.indexOf(item);
