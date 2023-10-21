@@ -21,38 +21,12 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
-    }
-}
+        FarmItem item = new FarmItem("Cow", 250, 10, 10, 10, 10, 10);
+        FarmBuilding room = new FarmBuilding("CowContainer", 2000, 10, 10, 10, 10, 10);
+        room.addItem(item);
+        System.out.println(room.getItems());
 
-class OldMcDonald extends FarmObject {
-    // An example implementation of the farm package
-    @Override
-    public void changeName() {
-
-    }
-
-    @Override
-    public void changePrice() {
-
-    }
-
-    @Override
-    public void changeLocationX() {
-
-    }
-
-    @Override
-    public void changeLocationY() {
-
-    }
-
-    @Override
-    public void changeLength() {
-
-    }
-
-    @Override
-    public void changeHeight() {
-
+        Item cow = room.getItemFromContainer("Cow", 10, 10);
+        System.out.println(cow.getName() + " "  + cow.getLocationX() + " " + cow.getLocationY());
     }
 }
