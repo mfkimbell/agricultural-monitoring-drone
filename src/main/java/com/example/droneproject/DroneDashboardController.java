@@ -2,15 +2,13 @@ package com.example.droneproject;
 
 import farm.*;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class DroneDashboardController implements Initializable {
@@ -28,7 +26,7 @@ public class DroneDashboardController implements Initializable {
     private Label metric4;
 
     @FXML
-    private ListView<farm.ItemContainer> myListView = new ListView<>();
+    private ListView itemOptions = new ListView<>();
 
     @FXML
     private Button visitImageButton;
@@ -44,7 +42,7 @@ public class DroneDashboardController implements Initializable {
     private Button scanDroneButton;
 
     @FXML
-    private Button viewDroneButton;
+    private Button visitDroneButton;
 
     @FXML
     public Pane root;
@@ -58,14 +56,20 @@ public class DroneDashboardController implements Initializable {
         FarmBuilding room = new FarmBuilding("CowContainer", 2000, 10, 10, 10, 10, 10);
         room.addItem(item);
         System.out.println(room.getItems());
+        ArrayList optionList = new ArrayList<>();
+        optionList.add("Item Root Commands");
+        optionList.add("Add Item Container");
+        itemOptions.getItems().addAll(optionList.get(0), optionList.get(1));
 
-        Item cow = room.getItemFromContainer("Cow", 10, 10);
-        System.out.println(cow.getName() + " "  + cow.getLocationX() + " " + cow.getLocationY());
-        ObservableList<farm.ItemContainer> items = myListView.getItems();
-        items.addAll(room.getItemContainers());
 
-        // Visit Items Button Handler
-        visitImageButton.setOnAction(event -> System.out.println(items));
+
+
+        // Button Handlers
+        visitImageButton.setOnAction(event -> System.out.println(itemOptions.getSelectionModel().getSelectedItem()));
+        homeButton.setOnAction(event -> System.out.println());
+        scanImageButton.setOnAction(event -> System.out.println());
+        scanDroneButton.setOnAction(event -> System.out.println());
+        visitDroneButton.setOnAction(event -> System.out.println());
 
         // Init item tree root
         TreeItem<String> rootItem = new TreeItem<>();
