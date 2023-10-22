@@ -12,7 +12,7 @@ public abstract class FarmObject implements FarmComponent {
     @Override
     public void changeName(String name) {
         this.name = name;
-    };
+    }
 
     public String getName(){
         return this.name;
@@ -21,21 +21,24 @@ public abstract class FarmObject implements FarmComponent {
     @Override
     public void changePrice(float price) {
         this.price = price;
-    };
+    }
+
     public float getPrice() {
         return this.price;
     }
     @Override
     public void changeLocationX(float x) {
         this.locationX = x;
-    };
+    }
+
     public float getLocationX(){
         return this.locationX;
     }
     @Override
     public void changeLocationY(float y) {
         this.locationY = y;
-    };
+    }
+
     public float getLocationY(){
         return this.locationY;
     }
@@ -43,14 +46,16 @@ public abstract class FarmObject implements FarmComponent {
     public void changeLength(float length) {
         this.length = length;
 
-    };
+    }
+
     public float getLength(){
         return this.length;
     }
     @Override
     public void changeHeight(float height){
         this.height = height;
-    };
+    }
+
     public float getHeight(){
         return this.height;
     }

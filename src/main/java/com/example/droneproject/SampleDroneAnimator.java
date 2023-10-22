@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Main extends Application
+public class SampleDroneAnimator extends Application
 {
     // Create the Timelines
     Timeline rotate = new Timeline();

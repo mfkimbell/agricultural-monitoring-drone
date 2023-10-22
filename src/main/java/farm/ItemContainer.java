@@ -17,18 +17,21 @@ public abstract class ItemContainer extends FarmObject {
     }
     public void addItem(Item item){
         this.items.add(item);
-    };
+    }
+
     public void deleteItem(Item item){
         int index = items.indexOf(item);
         this.items.remove(index);
-    };
+    }
+
     public void addItemContainer(ItemContainer itemContainer){
         this.itemContainers.add(itemContainer);
-    };
+    }
+
     public void deleteItemContainer(ItemContainer itemContainer){
         int index = itemContainers.indexOf(itemContainer);
         this.itemContainers.remove(index);
-    };
+    }
 
     public Item getItemFromContainer(String name, int x, int y){
         for (Item item: this.items){
@@ -37,7 +40,7 @@ public abstract class ItemContainer extends FarmObject {
             }
         }
         return null;
-    };
+    }
 
     public ItemContainer getItemContainerFromContainer(String name, int x, int y){
         for (ItemContainer container: this.itemContainers){
@@ -46,5 +49,5 @@ public abstract class ItemContainer extends FarmObject {
             }
         }
         return null;
-    };
+    }
 }
