@@ -14,4 +14,9 @@ public class FarmBuilding extends ItemContainer{
         this.width = width;
         this.height = height;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    };
 }

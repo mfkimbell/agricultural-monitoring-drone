@@ -1,0 +1,76 @@
+src/main/java/com/example/droneproject/HelloApplication.java:3: error: package javafx.application does not exist
+import javafx.application.Application;
+                         ^
+src/main/java/com/example/droneproject/HelloApplication.java:4: error: package javafx.fxml does not exist
+import javafx.fxml.FXMLLoader;
+                  ^
+src/main/java/com/example/droneproject/HelloApplication.java:5: error: package javafx.scene does not exist
+import javafx.scene.Scene;
+                   ^
+src/main/java/com/example/droneproject/HelloApplication.java:6: error: package javafx.stage does not exist
+import javafx.stage.Stage;
+                   ^
+src/main/java/com/example/droneproject/HelloApplication.java:11: error: cannot find symbol
+public class HelloApplication extends Application {
+                                      ^
+  symbol: class Application
+src/main/java/com/example/droneproject/HelloApplication.java:13: error: cannot find symbol
+    public void start(Stage stage) throws IOException {
+                      ^
+  symbol:   class Stage
+  location: class HelloApplication
+src/main/java/com/example/droneproject/HelloApplication.java:7: error: package farm does not exist
+import farm.*;
+^
+src/main/java/com/example/droneproject/HelloApplication.java:27: error: cannot find symbol
+class OldMcDonald extends FarmObject {
+                          ^
+  symbol: class FarmObject
+src/main/java/com/example/droneproject/HelloApplication.java:12: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+src/main/java/com/example/droneproject/HelloApplication.java:14: error: cannot find symbol
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        ^
+  symbol:   class FXMLLoader
+  location: class HelloApplication
+src/main/java/com/example/droneproject/HelloApplication.java:14: error: cannot find symbol
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+                                    ^
+  symbol:   class FXMLLoader
+  location: class HelloApplication
+src/main/java/com/example/droneproject/HelloApplication.java:15: error: cannot find symbol
+        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        ^
+  symbol:   class Scene
+  location: class HelloApplication
+src/main/java/com/example/droneproject/HelloApplication.java:15: error: cannot find symbol
+        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+                          ^
+  symbol:   class Scene
+  location: class HelloApplication
+src/main/java/com/example/droneproject/HelloApplication.java:23: error: cannot find symbol
+        launch();
+        ^
+  symbol:   method launch()
+  location: class HelloApplication
+src/main/java/com/example/droneproject/HelloApplication.java:29: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+src/main/java/com/example/droneproject/HelloApplication.java:34: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+src/main/java/com/example/droneproject/HelloApplication.java:39: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+src/main/java/com/example/droneproject/HelloApplication.java:44: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+src/main/java/com/example/droneproject/HelloApplication.java:49: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+src/main/java/com/example/droneproject/HelloApplication.java:54: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+20 errors
+error: compilation failed
