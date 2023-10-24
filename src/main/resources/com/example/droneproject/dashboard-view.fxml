@@ -19,7 +19,7 @@
    <children>
       <Pane prefHeight="893.0" prefWidth="1250.0">
          <children>
-            <SplitPane dividerPositions="0.7628504672897196" layoutX="-3.0" orientation="VERTICAL" prefHeight="858.0" prefWidth="290.0">
+            <SplitPane fx:id="controlPanel" dividerPositions="0.7628504672897196" layoutX="-3.0" orientation="VERTICAL" prefHeight="858.0" prefWidth="290.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="288.0">
                      <children>
@@ -28,7 +28,7 @@
                               <TreeView fx:id="itemTree" editable="true" prefHeight="274.0" prefWidth="290.0" />
                            </children>
                         </Pane>
-                         <ListView fx:id="itemOptions" layoutY="274.0" prefHeight="283.0" prefWidth="288.0" />
+                         <ListView fx:id="itemOptions" onMouseClicked="#handleMouseClicked" layoutY="274.0" prefHeight="283.0" prefWidth="288.0" />
                          <Text id="metric1" layoutX="14.0" layoutY="582.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Metric 1" />
                          <Text id="metric2" layoutX="14.0" layoutY="599.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Metric 2" />
                          <Text id="metric3" layoutX="14.0" layoutY="616.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Metric 3" />

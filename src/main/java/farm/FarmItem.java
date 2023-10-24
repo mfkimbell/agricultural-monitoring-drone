@@ -9,8 +9,13 @@ public class FarmItem extends Item {
         this.width = width;
         this.height = height;
     }
+
+    public FarmItem() {
+
+    }
+
     @Override
     public String toString() {
         return this.name;
-    };
+    }
 }
