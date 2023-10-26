@@ -84,19 +84,6 @@ public class DroneDashboardController implements Initializable {
         newItemDialog.show();
         newFarmItem = newItem.get();
     }
-
-    @FXML
-    private Label metric1;
-
-    @FXML
-    private Label metric2;
-
-    @FXML
-    private Label metric3;
-
-    @FXML
-    private Label metric4;
-
     @FXML
     private ListView itemOptions = new ListView<>();
 
