@@ -1,6 +1,8 @@
 package com.example.droneproject;
 
 import farm.*;
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -17,10 +19,11 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class DroneDashboardController implements Initializable {
-
     public Object currentAction = "";
     public TreeItem<String> rootItem = new TreeItem<>();
+    public TreeItem<String> testItem = new TreeItem<>();
     FarmItem newFarmItem = new FarmItem();
+    FarmBuilding newFarmBuilding = new FarmBuilding();
 
     ArrayList <FarmObject> farmObjects = new ArrayList<>();
 
@@ -92,7 +95,6 @@ public class DroneDashboardController implements Initializable {
     }
 
     public void createContainer(){
-
         Dialog<Boolean> newItemDialog = new Dialog();
         TextField itemNameField = new TextField();
         TextField itemPriceField = new TextField();
@@ -104,14 +106,14 @@ public class DroneDashboardController implements Initializable {
 
         Button acceptButton = new Button("OK");
         newItemDialog.setResult(true);
-        Text txt = new Text("Enter Item Values");
+        Text txt = new Text("Enter Building Values");
         VBox pane = new VBox(10);
-        AtomicReference<FarmItem> newItem = new <FarmItem>AtomicReference();
+        AtomicReference<FarmBuilding> newBuilding = new <FarmBuilding>AtomicReference();
 
-        newItemDialog.setTitle("New Item");
+        newItemDialog.setTitle("New Building");
 
         acceptButton.setOnAction(e -> {
-            FarmItem values = new FarmItem(
+            FarmBuilding values = new FarmBuilding(
                     itemNameField.getText(),
                     Float.parseFloat(itemPriceField.getText()),
                     Float.parseFloat(itemXField.getText()),
@@ -120,9 +122,7 @@ public class DroneDashboardController implements Initializable {
                     Float.parseFloat(itemWidthField.getText()),
                     Float.parseFloat(itemHeightField.getText())
             );
-            newItem.set(values);
-
-
+            newBuilding.set(values);
             newItemDialog.close();
         });
         Font font = Font.font("verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 12);
@@ -155,7 +155,7 @@ public class DroneDashboardController implements Initializable {
         pane.getChildren().add(fieldPane);
         newItemDialog.getDialogPane().setContent(pane);
         newItemDialog.showAndWait();
-        newFarmItem = newItem.get();
+        newFarmBuilding = newBuilding.get();
     }
     @FXML
     private ListView itemOptions = new ListView<>();
@@ -190,16 +190,30 @@ public class DroneDashboardController implements Initializable {
         if (currentAction == "Item Root Commands"){
             System.out.println("Check 1");
         }
-        if (currentAction == "Add Item Container"){
+        if (currentAction == "Add Item"){
+            TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
             createItem();
-            farmObjects.add(newFarmItem);
-
+            if (selection.getValue() instanceof FarmBuilding) {
+                ((FarmBuilding) selection.getValue()).addItem(newFarmItem);
+            } else {
+                farmObjects.add(newFarmItem);
+            }
         }
+
+        if (currentAction == "Add Item Container"){
+            TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
+            createContainer();
+            if (selection.getValue() instanceof FarmBuilding) {
+                ((FarmBuilding) selection.getValue()).addItemContainer(newFarmBuilding);
+            } else {
+                farmObjects.add(newFarmBuilding);
+            }
+        }
+        rootItem.getChildren().clear();
         for(FarmObject i: farmObjects){
             TreeItem node = buildTree(i);
             rootItem.getChildren().add(node);
         }
-
     }
     public TreeItem buildTree(FarmObject object){
         TreeItem node = new TreeItem<>();
@@ -217,16 +231,184 @@ public class DroneDashboardController implements Initializable {
         return node;
     }
 
+    public void findObjectAndDelete(ArrayList farm_arr, FarmObject target){
+        for(Object obj: farm_arr) {
+            if(obj instanceof FarmBuilding) {
+                if (((FarmBuilding) obj).getItemContainers().contains(target)){
+                    ((FarmBuilding) obj).deleteItemContainer((ItemContainer) target);
+                    return;
+                }
+                if (((FarmBuilding) obj).getItems().contains(target)){
+                    ((FarmBuilding) obj).deleteItem((Item) target);
+                    return;
+                }
+                if (((FarmBuilding) obj).getItemContainers() != null) {
+                    findObjectAndDelete(((FarmBuilding) obj).getItemContainers(), target);
+                }
+            }
+            if(obj.equals(target)) {
+                farm_arr.remove(target);
+                return;
+            }
+        }
+    }
+    public void configureContextMenu() {
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem rename = new MenuItem("Rename");
+        MenuItem location = new MenuItem("Change Location");
+        MenuItem price = new MenuItem("Change Price");
+        MenuItem dimensions = new MenuItem("Change Dimensions");
+        MenuItem delete = new MenuItem("Delete");
+
+        delete.setOnAction(event -> {
+            TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
+            findObjectAndDelete(farmObjects, (FarmObject) selection.getValue());
+            rootItem.getChildren().clear();
+            for(FarmObject i: farmObjects){
+                TreeItem node = buildTree(i);
+                rootItem.getChildren().add(node);
+            }
+        });
+
+        dimensions.setOnAction(event -> {
+            TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
+            Dialog<Boolean> newItemDialog = new Dialog();
+            TextField length = new TextField();
+            TextField width = new TextField();
+            TextField height = new TextField();
+            Label L = new Label("L: ");
+            Label W = new Label("W: ");
+            Label H = new Label("H: ");
+
+            Button acceptButton = new Button("Change");
+
+            acceptButton.setOnAction(e -> {
+                if (selection.getValue() instanceof FarmItem) {
+                    ((FarmItem) selection.getValue()).changeLength(Float.parseFloat(length.getText()));
+                    ((FarmItem) selection.getValue()).changeWidth(Float.parseFloat(width.getText()));
+                    ((FarmItem) selection.getValue()).changeHeight(Float.parseFloat(height.getText()));
+                }
+                if (selection.getValue() instanceof FarmBuilding) {
+                    ((FarmBuilding) selection.getValue()).changeLength(Float.parseFloat(length.getText()));
+                    ((FarmBuilding) selection.getValue()).changeWidth(Float.parseFloat(width.getText()));
+                    ((FarmBuilding) selection.getValue()).changeHeight(Float.parseFloat(height.getText()));
+                    System.out.println(((FarmBuilding) selection.getValue()).getLength());
+                    System.out.println(((FarmBuilding) selection.getValue()).getWidth());
+                    System.out.println(((FarmBuilding) selection.getValue()).getHeight());
+                }
+                newItemDialog.close();
+            });
+
+            newItemDialog.setResult(true);
+            VBox pane = new VBox(10);
+
+            GridPane fieldPane = new GridPane();
+            fieldPane.add(L, 0,0);
+            fieldPane.add(length, 1,0);
+            fieldPane.add(W, 2,0);
+            fieldPane.add(width, 3,0);
+            fieldPane.add(H, 4,0);
+            fieldPane.add(height, 5,0);
+            fieldPane.add(acceptButton, 6, 0);
+
+            pane.getChildren().add(fieldPane);
+            newItemDialog.getDialogPane().setContent(pane);
+            newItemDialog.showAndWait();
+
+            itemTree.refresh();
+        });
+        price.setOnAction(event -> {
+            TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
+            TextInputDialog inputDialog = new TextInputDialog();
+            inputDialog.setTitle("Edit");
+            inputDialog.setHeaderText(null); // Remove the header text
+            inputDialog.setContentText("New Price:");
+            inputDialog.setGraphic(null); // Remove the icon
+            String result = inputDialog.showAndWait().get();
+            if (selection.getValue() instanceof FarmItem) {
+                ((FarmItem) selection.getValue()).changePrice(Float.parseFloat(result));
+                System.out.println(((FarmItem) selection.getValue()).getPrice());
+            }
+            if (selection.getValue() instanceof FarmBuilding) {
+                ((FarmBuilding) selection.getValue()).changePrice(Float.parseFloat(result));
+                System.out.println(((FarmBuilding) selection.getValue()).getPrice());
+            }
+            itemTree.refresh();
+        });
+
+        rename.setOnAction(event -> {
+            TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
+            TextInputDialog inputDialog = new TextInputDialog();
+            inputDialog.setTitle("Edit");
+            inputDialog.setHeaderText(null); // Remove the header text
+            inputDialog.setContentText("New Name:");
+            inputDialog.setGraphic(null); // Remove the icon
+            String result = inputDialog.showAndWait().get();
+            if (selection.getValue() instanceof FarmItem) {
+                ((FarmItem) selection.getValue()).changeName(result);
+            }
+            if (selection.getValue() instanceof FarmBuilding) {
+                ((FarmBuilding) selection.getValue()).changeName(result);
+            }
+            itemTree.refresh();
+        });
+
+        location.setOnAction(event -> {
+            TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
+            Dialog<Boolean> newItemDialog = new Dialog();
+            TextField x = new TextField();
+            TextField y = new TextField();
+            Label X = new Label("X: ");
+            Label Y = new Label("Y: ");
+
+            Button acceptButton = new Button("Change");
+
+            acceptButton.setOnAction(e -> {
+                if (selection.getValue() instanceof FarmItem) {
+                    ((FarmItem) selection.getValue()).changeLocationX(Float.parseFloat(x.getText()));
+                    ((FarmItem) selection.getValue()).changeLocationY(Float.parseFloat(y.getText()));
+                }
+                if (selection.getValue() instanceof FarmBuilding) {
+                    ((FarmBuilding) selection.getValue()).changeLocationX(Float.parseFloat(x.getText()));
+                    ((FarmBuilding) selection.getValue()).changeLocationY(Float.parseFloat(y.getText()));
+                    System.out.println(((FarmBuilding) selection.getValue()).getLocationX());
+                    System.out.println(((FarmBuilding) selection.getValue()).getLocationY());
+                }
+                newItemDialog.close();
+            });
+
+            newItemDialog.setResult(true);
+            VBox pane = new VBox(10);
+
+            GridPane fieldPane = new GridPane();
+            fieldPane.add(X, 0,0);
+            fieldPane.add(Y, 2,0);
+            fieldPane.add(x, 1, 0);
+            fieldPane.add(y, 3, 0);
+            fieldPane.add(acceptButton, 4, 0);
+
+            pane.getChildren().add(fieldPane);
+            newItemDialog.getDialogPane().setContent(pane);
+            newItemDialog.showAndWait();
+
+            itemTree.refresh();
+        });
+
+        contextMenu.getItems().addAll(rename, location, price, dimensions, delete);
+        itemTree.setContextMenu(contextMenu);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        configureContextMenu();
         FarmBuilding room = new FarmBuilding("CowContainer", 2000, 10, 10, 10, 10, 10);
         room.addItem(new FarmItem("test",2,2,2,2,2,2));
         farmObjects.add(room);
         ArrayList optionList = new ArrayList<>();
         optionList.add("Item Root Commands");
         optionList.add("Add Item Container");
-        itemOptions.getItems().addAll(optionList.get(0), optionList.get(1));
+        optionList.add("Add Item");
+        itemOptions.getItems().addAll(optionList.get(0), optionList.get(1), optionList.get(2));
 
         // Button Handlers
         visitImageButton.setOnAction(event -> System.out.println(itemOptions.getSelectionModel().getSelectedItem()));
@@ -238,15 +420,8 @@ public class DroneDashboardController implements Initializable {
         // Init item tree root
         rootItem.setValue("root");
 
-        // Gets each item in the Farm Building instance
-
-
         // Sets root for Item Tree
         itemTree.setRoot(rootItem);
-
-
-
-
     }
 
 }
