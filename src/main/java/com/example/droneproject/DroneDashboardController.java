@@ -1,8 +1,6 @@
 package com.example.droneproject;
 
 import farm.*;
-import javafx.beans.Observable;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -10,13 +8,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
+
+import javafx.scene.paint.Color;
 
 public class DroneDashboardController implements Initializable {
     public Object currentAction = "";
@@ -26,6 +26,26 @@ public class DroneDashboardController implements Initializable {
     FarmBuilding newFarmBuilding = new FarmBuilding();
 
     ArrayList <FarmObject> farmObjects = new ArrayList<>();
+
+    public void drawPerimeter(FarmItem values) {
+        Rectangle myRectangle = new Rectangle(values.getWidth(), values.getHeight());
+        myRectangle.setFill(null);
+        myRectangle.setStroke(Color.BLACK);
+        myRectangle.setStrokeWidth(2.0);
+        myRectangle.setTranslateX(values.getLocationX());
+        myRectangle.setTranslateY(values.getLocationY());
+        mapview.getChildren().add(myRectangle);
+    }
+
+    public void drawPerimeter(FarmBuilding values) {
+        Rectangle myRectangle = new Rectangle(values.getWidth(), values.getHeight());
+        myRectangle.setFill(null);
+        myRectangle.setStroke(Color.BLACK);
+        myRectangle.setStrokeWidth(2.0);
+        myRectangle.setTranslateX(values.getLocationX());
+        myRectangle.setTranslateY(values.getLocationY());
+        mapview.getChildren().add(myRectangle);
+    }
 
     public void createItem(){
 
@@ -56,6 +76,7 @@ public class DroneDashboardController implements Initializable {
                     Float.parseFloat(itemWidthField.getText()),
                     Float.parseFloat(itemHeightField.getText())
             );
+            drawPerimeter(values);
             newItem.set(values);
 
 
@@ -122,6 +143,7 @@ public class DroneDashboardController implements Initializable {
                     Float.parseFloat(itemWidthField.getText()),
                     Float.parseFloat(itemHeightField.getText())
             );
+            drawPerimeter(values);
             newBuilding.set(values);
             newItemDialog.close();
         });
@@ -159,6 +181,9 @@ public class DroneDashboardController implements Initializable {
     }
     @FXML
     private ListView itemOptions = new ListView<>();
+
+    @FXML
+    public Pane mapview;
 
     @FXML
     private Button visitImageButton;
