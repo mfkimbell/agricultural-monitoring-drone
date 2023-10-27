@@ -327,11 +327,9 @@ public class DroneDashboardController implements Initializable {
             String result = inputDialog.showAndWait().get();
             if (selection.getValue() instanceof FarmItem) {
                 ((FarmItem) selection.getValue()).changePrice(Float.parseFloat(result));
-                System.out.println(((FarmItem) selection.getValue()).getPrice());
             }
             if (selection.getValue() instanceof FarmBuilding) {
                 ((FarmBuilding) selection.getValue()).changePrice(Float.parseFloat(result));
-                System.out.println(((FarmBuilding) selection.getValue()).getPrice());
             }
             itemTree.refresh();
         });
