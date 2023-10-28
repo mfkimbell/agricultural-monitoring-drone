@@ -1,6 +1,19 @@
 package farm;
+
+import javafx.scene.shape.Rectangle;
+
 public class FarmItem extends Item {
-    public FarmItem(String name, float price, float x, float y, float length, float width, float height) {
+    private Rectangle perimeter;
+
+    public Rectangle getPerimeter() {
+        return perimeter;
+    }
+
+    public void setPerimeter(Rectangle perimeter) {
+        this.perimeter = perimeter;
+    }
+
+    public FarmItem(String name, float price, float x, float y, float length, float width, float height, Rectangle perimeter) {
         this.name = name;
         this.price = price;
         this.locationX = x;
@@ -8,6 +21,7 @@ public class FarmItem extends Item {
         this.length = length;
         this.width = width;
         this.height = height;
+        this.perimeter = perimeter;
     }
 
     public FarmItem() {

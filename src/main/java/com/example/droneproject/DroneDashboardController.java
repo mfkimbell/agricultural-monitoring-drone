@@ -27,7 +27,7 @@ public class DroneDashboardController implements Initializable {
 
     ArrayList <FarmObject> farmObjects = new ArrayList<>();
 
-    public void drawPerimeter(FarmItem values) {
+    public Rectangle drawPerimeter(FarmItem values) {
         Rectangle myRectangle = new Rectangle(values.getWidth(), values.getHeight());
         myRectangle.setFill(null);
         myRectangle.setStroke(Color.BLACK);
@@ -35,9 +35,10 @@ public class DroneDashboardController implements Initializable {
         myRectangle.setTranslateX(values.getLocationX());
         myRectangle.setTranslateY(values.getLocationY());
         mapview.getChildren().add(myRectangle);
+        return myRectangle;
     }
 
-    public void drawPerimeter(FarmBuilding values) {
+    public Rectangle drawPerimeter(FarmBuilding values) {
         Rectangle myRectangle = new Rectangle(values.getWidth(), values.getHeight());
         myRectangle.setFill(null);
         myRectangle.setStroke(Color.BLACK);
@@ -45,6 +46,7 @@ public class DroneDashboardController implements Initializable {
         myRectangle.setTranslateX(values.getLocationX());
         myRectangle.setTranslateY(values.getLocationY());
         mapview.getChildren().add(myRectangle);
+        return myRectangle;
     }
 
     public void createItem(){
@@ -74,9 +76,12 @@ public class DroneDashboardController implements Initializable {
                     Float.parseFloat(itemYField.getText()),
                     Float.parseFloat(itemLengthField.getText()),
                     Float.parseFloat(itemWidthField.getText()),
-                    Float.parseFloat(itemHeightField.getText())
+                    Float.parseFloat(itemHeightField.getText()),
+                    new Rectangle()
             );
-            drawPerimeter(values);
+
+            Rectangle rect = drawPerimeter(values);
+            values.setPerimeter(rect);
             newItem.set(values);
 
 
@@ -141,9 +146,11 @@ public class DroneDashboardController implements Initializable {
                     Float.parseFloat(itemYField.getText()),
                     Float.parseFloat(itemLengthField.getText()),
                     Float.parseFloat(itemWidthField.getText()),
-                    Float.parseFloat(itemHeightField.getText())
+                    Float.parseFloat(itemHeightField.getText()),
+                    new Rectangle()
             );
-            drawPerimeter(values);
+            Rectangle rect = drawPerimeter(values);
+            values.setPerimeter(rect);
             newBuilding.set(values);
             newItemDialog.close();
         });
@@ -309,14 +316,29 @@ public class DroneDashboardController implements Initializable {
 
             acceptButton.setOnAction(e -> {
                 if (selection.getValue() instanceof FarmItem) {
+
+                    mapview.getChildren().remove(((FarmItem) selection.getValue()).getPerimeter());
+
                     ((FarmItem) selection.getValue()).changeLength(Float.parseFloat(length.getText()));
                     ((FarmItem) selection.getValue()).changeWidth(Float.parseFloat(width.getText()));
                     ((FarmItem) selection.getValue()).changeHeight(Float.parseFloat(height.getText()));
+
+                    Rectangle newRect = drawPerimeter((FarmItem) selection.getValue());
+                    ((FarmItem) selection.getValue()).setPerimeter(newRect);
+
                 }
                 if (selection.getValue() instanceof FarmBuilding) {
+
+                    mapview.getChildren().remove(((FarmBuilding) selection.getValue()).getPerimeter());
+
+
                     ((FarmBuilding) selection.getValue()).changeLength(Float.parseFloat(length.getText()));
                     ((FarmBuilding) selection.getValue()).changeWidth(Float.parseFloat(width.getText()));
                     ((FarmBuilding) selection.getValue()).changeHeight(Float.parseFloat(height.getText()));
+
+                    Rectangle newRect = drawPerimeter((FarmBuilding) selection.getValue());
+                    ((FarmBuilding) selection.getValue()).setPerimeter(newRect);
+
                     System.out.println(((FarmBuilding) selection.getValue()).getLength());
                     System.out.println(((FarmBuilding) selection.getValue()).getWidth());
                     System.out.println(((FarmBuilding) selection.getValue()).getHeight());
@@ -388,14 +410,27 @@ public class DroneDashboardController implements Initializable {
 
             acceptButton.setOnAction(e -> {
                 if (selection.getValue() instanceof FarmItem) {
+
+                    mapview.getChildren().remove(((FarmItem) selection.getValue()).getPerimeter());
+
                     ((FarmItem) selection.getValue()).changeLocationX(Float.parseFloat(x.getText()));
                     ((FarmItem) selection.getValue()).changeLocationY(Float.parseFloat(y.getText()));
+
+
+                    Rectangle newRect = drawPerimeter((FarmItem) selection.getValue());
+                    ((FarmItem) selection.getValue()).setPerimeter(newRect);
                 }
                 if (selection.getValue() instanceof FarmBuilding) {
+
+                    mapview.getChildren().remove(((FarmBuilding) selection.getValue()).getPerimeter());
+
                     ((FarmBuilding) selection.getValue()).changeLocationX(Float.parseFloat(x.getText()));
                     ((FarmBuilding) selection.getValue()).changeLocationY(Float.parseFloat(y.getText()));
                     System.out.println(((FarmBuilding) selection.getValue()).getLocationX());
                     System.out.println(((FarmBuilding) selection.getValue()).getLocationY());
+
+                    Rectangle newRect = drawPerimeter((FarmBuilding) selection.getValue());
+                    ((FarmBuilding) selection.getValue()).setPerimeter(newRect);
                 }
                 newItemDialog.close();
             });
@@ -424,8 +459,8 @@ public class DroneDashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         configureContextMenu();
-        FarmBuilding room = new FarmBuilding("CowContainer", 2000, 10, 10, 10, 10, 10);
-        room.addItem(new FarmItem("test",2,2,2,2,2,2));
+        FarmBuilding room = new FarmBuilding("CowContainer", 2000, 10, 10, 10, 10, 10, new Rectangle());
+        room.addItem(new FarmItem("test",2,2,2,2,2,2, new Rectangle()));
         farmObjects.add(room);
         ArrayList optionList = new ArrayList<>();
         optionList.add("Item Root Commands");
