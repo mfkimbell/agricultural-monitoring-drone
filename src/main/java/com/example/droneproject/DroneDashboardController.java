@@ -220,7 +220,7 @@ public class DroneDashboardController implements Initializable {
     public void handleMouseClicked(MouseEvent mouseEvent) {
         currentAction = itemOptions.getSelectionModel().getSelectedItem();
         if (currentAction == "Item Root Commands"){
-            System.out.println("Check 1");
+            System.out.println("Insert Root Actions Commands");
         }
         if (currentAction == "Add Item"){
             TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();

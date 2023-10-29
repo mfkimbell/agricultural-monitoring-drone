@@ -15,6 +15,5 @@ The purpose of this project was to create an application that allows peopel in t
 [A bunch of boxes and squares and whatnot. Perhaps even a circle]
 
 ### Resources
-[We don't like plagiarism around these parts]
-
-`420 blaze it`
+[SceneBuilder](https://gluonhq.com/products/scene-builder/)\
+[JavaFX](https://openjfx.io/)
