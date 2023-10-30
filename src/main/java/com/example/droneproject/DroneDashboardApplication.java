@@ -16,7 +16,7 @@ public class DroneDashboardApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(DroneDashboardApplication.class.getResource("dashboard-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1080, 900);
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 900);
         ImageView drone = new ImageView(new Image("/drone.png"));
         stage.setTitle("Drone Dashboard");
         stage.setScene(scene);

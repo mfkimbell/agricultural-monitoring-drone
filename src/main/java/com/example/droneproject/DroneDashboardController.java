@@ -1,10 +1,11 @@
 package com.example.droneproject;
 
 import farm.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -16,14 +17,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
-
 import java.net.URL;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
-
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
+import javafx.util.Duration;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 public class DroneDashboardController implements Initializable {
     //create timeline for drone
@@ -223,7 +225,7 @@ public class DroneDashboardController implements Initializable {
     private Button scanImageButton;
 
     @FXML
-    private Button scanDroneButton;
+    public Button scanDroneButton;
 
     @FXML
     private Button visitDroneButton;
@@ -475,10 +477,6 @@ public class DroneDashboardController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        configureContextMenu();
-        FarmBuilding commandCenter = new FarmBuilding("Command Center", 2000, 10, 10, 10, 10, 10, new Rectangle());
-        commandCenter.addItem(new FarmItem("test",2,2,2,2,2,2, new Rectangle()));
-        farmObjects.add(commandCenter);
 
         ArrayList optionList = new ArrayList<>();
         optionList.add("Item Root Commands");
@@ -486,19 +484,69 @@ public class DroneDashboardController implements Initializable {
         optionList.add("Add Item");
         itemOptions.getItems().addAll(optionList.get(0), optionList.get(1), optionList.get(2));
 
-        // Button Handlers
-        visitImageButton.setOnAction(event -> System.out.println(itemOptions.getSelectionModel().getSelectedItem()));
-
-        homeButton.setOnAction(event -> System.out.println());
-        scanImageButton.setOnAction(event -> System.out.println());
-        scanDroneButton.setOnAction(event -> System.out.println());
-        visitDroneButton.setOnAction(event -> System.out.println());
 
         // Init item tree root
         rootItem.setValue("root");
 
         // Sets root for Item Tree
         itemTree.setRoot(rootItem);
+
+        ImageView droneImage = new ImageView(new Image("/drone.png"));
+
+        configureContextMenu();
+        FarmBuilding commandCenter = new FarmBuilding("Command Center", 2000, 10, 10, 100, 100, 100, new Rectangle());
+        Rectangle rect = drawPerimeter(commandCenter);
+        commandCenter.setPerimeter(rect);
+
+        Drone drone = new Drone("Drone",2,2,2,2,2,2, new Rectangle(), droneImage);
+        commandCenter.addItem(drone);
+        farmObjects.add(commandCenter);
+
+        mapview.getChildren().addAll(drone.getImage());
+
+        // Button Handlers
+        scanDroneButton.setOnAction(event -> {
+
+        Timeline droneMovement = new Timeline();
+
+        double sceneWidth = mapview.getWidth();
+        double sceneHeight = mapview.getHeight();
+        double droneWidth = drone.getImage().getLayoutBounds().getWidth();
+        double droneHeight = drone.getImage().getLayoutBounds().getHeight();
+
+        Duration endDuration = Duration.seconds(15);
+
+        drone.getImage().setX(0);
+        drone.getImage().setY(0);
+
+        KeyValue startKV = new KeyValue(drone.getImage().translateXProperty(), 0);
+        KeyFrame startKF = new KeyFrame(Duration.ZERO, startKV);
+
+        droneMovement.getKeyFrames().add(startKF);
+
+        int numSteps = (int) Math.ceil(sceneWidth / droneWidth);
+
+        for (int i = 0; i < numSteps - 1; i++) {
+            double x = i * droneWidth;
+            double y = (i % 2 == 0) ? sceneHeight - droneHeight : 0; // Alternate between top and bottom
+
+            KeyValue kv = new KeyValue(drone.getImage().translateXProperty(), x);
+            KeyValue kv2 = new KeyValue(drone.getImage().translateYProperty(), y);
+
+            drone.getImage().setRotate(drone.getImage().getRotate() + 90);
+
+            KeyFrame kf = new KeyFrame(endDuration.multiply((i + 1.0) / numSteps), kv, kv2);
+            droneMovement.getKeyFrames().add(kf);
+        }
+        droneMovement.play();
+
+        });
+
+        rootItem.getChildren().clear();
+        for(FarmObject i: farmObjects){
+            TreeItem node = buildTree(i);
+            rootItem.getChildren().add(node);
+        }
     }
 
 }
