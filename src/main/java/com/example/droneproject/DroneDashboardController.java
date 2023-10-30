@@ -476,9 +476,10 @@ public class DroneDashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         configureContextMenu();
-        FarmBuilding room = new FarmBuilding("CowContainer", 2000, 10, 10, 10, 10, 10, new Rectangle());
-        room.addItem(new FarmItem("test",2,2,2,2,2,2, new Rectangle()));
-        farmObjects.add(room);
+        FarmBuilding commandCenter = new FarmBuilding("Command Center", 2000, 10, 10, 10, 10, 10, new Rectangle());
+        commandCenter.addItem(new FarmItem("test",2,2,2,2,2,2, new Rectangle()));
+        farmObjects.add(commandCenter);
+
         ArrayList optionList = new ArrayList<>();
         optionList.add("Item Root Commands");
         optionList.add("Add Item Container");
