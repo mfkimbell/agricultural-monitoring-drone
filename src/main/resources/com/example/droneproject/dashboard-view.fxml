@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="898.0" prefWidth="1253.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droneproject.DroneDashboardController">
+<VBox alignment="CENTER" prefHeight="898.0" prefWidth="1253.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droneproject.DroneDashboardController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -51,7 +51,7 @@
                   </AnchorPane>
               </items>
             </SplitPane>
-             <Pane id="droneDisplay" fx:id="mapview" layoutX="332.0" layoutY="100.0" prefHeight="600.0" prefWidth="800.0" />
+             <Pane id="droneDisplay" fx:id="mapview" layoutX="332.0" layoutY="100.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #e6e6e6;" />
          </children>
       </Pane>
    </children>

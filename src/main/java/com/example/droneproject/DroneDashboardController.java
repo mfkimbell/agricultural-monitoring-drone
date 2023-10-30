@@ -1,9 +1,15 @@
 package com.example.droneproject;
 
 import farm.*;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -17,15 +23,27 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class DroneDashboardController implements Initializable {
+    //create timeline for drone
+    Timeline rotate = new Timeline();
+    Timeline moveDiagonal = new Timeline();
+    Timeline moveUp = new Timeline();
+    Timeline rotateNext = new Timeline();
+    Timeline rotateLast = new Timeline();
+    Timeline moveLeft = new Timeline();
+
+    SequentialTransition sequence = new SequentialTransition();
     public Object currentAction = "";
     public TreeItem<String> rootItem = new TreeItem<>();
     public TreeItem<String> testItem = new TreeItem<>();
     FarmItem newFarmItem = new FarmItem();
     FarmBuilding newFarmBuilding = new FarmBuilding();
-
     ArrayList <FarmObject> farmObjects = new ArrayList<>();
+
+    //create drone image
+    ImageView drone = new ImageView(new Image("/drone.png"));
 
     public Rectangle drawPerimeter(FarmItem values) {
         Rectangle myRectangle = new Rectangle(values.getWidth(), values.getHeight());
@@ -455,7 +473,6 @@ public class DroneDashboardController implements Initializable {
         contextMenu.getItems().addAll(rename, location, price, dimensions, delete);
         itemTree.setContextMenu(contextMenu);
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         configureContextMenu();
@@ -470,6 +487,7 @@ public class DroneDashboardController implements Initializable {
 
         // Button Handlers
         visitImageButton.setOnAction(event -> System.out.println(itemOptions.getSelectionModel().getSelectedItem()));
+
         homeButton.setOnAction(event -> System.out.println());
         scanImageButton.setOnAction(event -> System.out.println());
         scanDroneButton.setOnAction(event -> System.out.println());
