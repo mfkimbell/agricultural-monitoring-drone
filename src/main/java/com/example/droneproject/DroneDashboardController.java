@@ -5,7 +5,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
-import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -18,7 +17,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import java.net.URL;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
@@ -307,7 +305,12 @@ public class DroneDashboardController implements Initializable {
                     findObjectAndDelete(((FarmBuilding) obj).getItemContainers(), target);
                 }
             }
-            if(obj.equals(target)) {
+            if(obj.equals(target) && target instanceof FarmBuilding) {
+                mapview.getChildren().remove(((FarmBuilding) target).getPerimeter());
+                farm_arr.remove(target);
+                return;
+            } else if(obj.equals(target) && target instanceof FarmItem){
+                mapview.getChildren().remove(((FarmItem) target).getPerimeter());
                 farm_arr.remove(target);
                 return;
             }
@@ -501,13 +504,15 @@ public class DroneDashboardController implements Initializable {
         itemTree.setRoot(rootItem);
 
         ImageView droneImage = new ImageView(new Image("/drone.png"));
+        droneImage.setX(15);
+        droneImage.setY(15);
 
         configureContextMenu();
-        FarmBuilding commandCenter = new FarmBuilding("Command Center", 2000, 10, 10, 100, 100, 100, new Rectangle());
+        FarmBuilding commandCenter = new FarmBuilding("Command Center", 2000, 0, 0, 100, 100, 100, new Rectangle());
         Rectangle rect = drawPerimeter(commandCenter);
         commandCenter.setPerimeter(rect);
 
-        Drone drone = new Drone("Drone",2,2,2,2,2,2, new Rectangle(), droneImage);
+        Drone drone = new Drone("Drone",2,(float) droneImage.getX(),(float) droneImage.getY(),(float) droneImage.getImage().getHeight(),(float) droneImage.getImage().getWidth(),2, new Rectangle(), droneImage);
         commandCenter.addItem(drone);
         farmObjects.add(commandCenter);
 
