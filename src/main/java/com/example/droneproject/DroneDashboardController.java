@@ -245,19 +245,28 @@ public class DroneDashboardController implements Initializable {
         if (currentAction == "Add Item"){
             TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
             createItem();
-            if (selection.getValue() instanceof FarmBuilding) {
-                ((FarmBuilding) selection.getValue()).addItem(newFarmItem);
-            } else {
+            try {
+                if (selection.getValue() instanceof FarmBuilding) {
+                    ((FarmBuilding) selection.getValue()).addItem(newFarmItem);
+                } else {
+                    farmObjects.add(newFarmItem);
+                }
+            } catch(NullPointerException e){
                 farmObjects.add(newFarmItem);
             }
+
         }
 
         if (currentAction == "Add Item Container"){
             TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
             createContainer();
-            if (selection.getValue() instanceof FarmBuilding) {
-                ((FarmBuilding) selection.getValue()).addItemContainer(newFarmBuilding);
-            } else {
+            try {
+                if (selection.getValue() instanceof FarmBuilding) {
+                    ((FarmBuilding) selection.getValue()).addItemContainer(newFarmBuilding);
+                } else {
+                    farmObjects.add(newFarmBuilding);
+                }
+            } catch (NullPointerException e){
                 farmObjects.add(newFarmBuilding);
             }
         }
