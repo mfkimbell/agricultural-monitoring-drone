@@ -514,7 +514,7 @@ public class DroneDashboardController implements Initializable {
         mapview.getChildren().addAll(drone.getImage());
 
         // Button Handlers
-        scanDroneButton.setOnAction(event -> {
+        scanImageButton.setOnAction(event -> {
 
         Timeline droneMovement = new Timeline();
 
@@ -533,11 +533,14 @@ public class DroneDashboardController implements Initializable {
 
         droneMovement.getKeyFrames().add(startKF);
 
-        int numSteps = (int) Math.ceil(sceneWidth / droneWidth);
+        int numSteps = (int) Math.ceil(sceneWidth / droneWidth) + 1;
 
+        double x = 0;
+        double y = sceneHeight - droneHeight;
         for (int i = 0; i < numSteps - 1; i++) {
-            double x = i * droneWidth;
-            double y = (i % 2 == 0) ? sceneHeight - droneHeight : 0; // Alternate between top and bottom
+
+            x = (i % 2 != 0) ? i * droneWidth : x; // Alternate between move one drone width over every 2 iterations
+            y = (i % 4 < 2) ? sceneHeight - droneHeight : 0; // Alternate between top and bottom every 2 iterations
 
             KeyValue kv = new KeyValue(drone.getImage().translateXProperty(), x);
             KeyValue kv2 = new KeyValue(drone.getImage().translateYProperty(), y);
@@ -548,7 +551,6 @@ public class DroneDashboardController implements Initializable {
             droneMovement.getKeyFrames().add(kf);
         }
         droneMovement.play();
-
         });
 
         rootItem.getChildren().clear();
