@@ -513,7 +513,18 @@ public class DroneDashboardController implements Initializable {
         Rectangle rect = drawPerimeter(commandCenter);
         commandCenter.setPerimeter(rect);
 
-        Drone drone = new Drone("Drone",2,(float) droneImage.getX(),(float) droneImage.getY(),(float) droneImage.getImage().getHeight(),(float) droneImage.getImage().getWidth(),2, new Rectangle(), droneImage);
+        Drone drone = Drone.getInstance();
+        drone.setName("Drone");
+        drone.setPrice(2);
+        drone.setX((float) droneImage.getX());
+        drone.setY((float) droneImage.getY());
+        drone.setLength((float) droneImage.getImage().getHeight());
+        drone.setWidth((float) droneImage.getImage().getWidth());
+        drone.setHeight(2);
+        drone.setRectangle(new Rectangle());
+        drone.setImage(droneImage);
+
+        //Drone drone = new Drone("Drone",2,(float) droneImage.getX(),(float) droneImage.getY(),(float) droneImage.getImage().getHeight(),(float) droneImage.getImage().getWidth(),2, new Rectangle(), droneImage);
         commandCenter.addItem(drone);
         farmObjects.add(commandCenter);
 
