@@ -532,101 +532,69 @@ public class DroneDashboardController implements Initializable {
 
         // Button Handlers
         scanImageButton.setOnAction(event -> {
-        Timeline moveDown = new Timeline();
-        SequentialTransition sequence = new SequentialTransition();
         double sceneWidth = mapview.getWidth();
         double sceneHeight = mapview.getHeight();
         double droneWidth = drone.getImage().getLayoutBounds().getWidth();
         double droneHeight = drone.getImage().getLayoutBounds().getHeight();
 
-        Duration moveDuration = Duration.seconds(2);
-        Duration endDuration = Duration.seconds(0.5);
+        Duration moveDuration = Duration.seconds(0.5);
+        Duration endDuration = Duration.seconds(0.25);
 
         double y = sceneHeight - droneHeight - 15;
-        double x = sceneWidth - droneWidth;
+        double x = 72;
 
         drone.getImage().setX(0);
+        SequentialTransition sequence = new SequentialTransition();
+        for(int i =0; i <= 5; i++) {
+            if(i == 5){
+                KeyValue endDownKV_Y = new KeyValue(drone.getImage().translateYProperty(), y);
+                KeyFrame endDownKF = new KeyFrame(moveDuration, endDownKV_Y);
+                KeyValue rotateDroneUp = new KeyValue(drone.getImage().rotateProperty(), drone.getImage().getRotate() - 90);
+                KeyFrame turnUp = new KeyFrame(endDuration, rotateDroneUp);
+                Timeline moveDown = new Timeline(endDownKF);
+                Timeline rotateUp = new Timeline(turnUp);
+                sequence.getChildren().addAll(moveDown,rotateUp);
+                break;
+            }
+            KeyValue rotateDroneDown = new KeyValue(drone.getImage().rotateProperty(), drone.getImage().getRotate() + 90);
+            KeyFrame turnDown = new KeyFrame(endDuration, rotateDroneDown);
+            KeyValue endDownKV_Y = new KeyValue(drone.getImage().translateYProperty(), y);
+            KeyFrame endDownKF = new KeyFrame(moveDuration, endDownKV_Y);
+            KeyValue rotateDroneRight = new KeyValue(drone.getImage().rotateProperty(), drone.getImage().getRotate());
+            KeyFrame turnRight = new KeyFrame(endDuration, rotateDroneRight);
+            KeyValue moveRightKV = new KeyValue(drone.getImage().translateXProperty(), x);
+            KeyFrame moveRightKF = new KeyFrame(endDuration, moveRightKV);
+            KeyValue rotateDroneUp = new KeyValue(drone.getImage().rotateProperty(), drone.getImage().getRotate() - 90);
+            KeyFrame turnUp = new KeyFrame(endDuration, rotateDroneUp);
+            KeyValue moveUpKV = new KeyValue(drone.getImage().translateYProperty(), 0);
+            KeyFrame moveUpKF = new KeyFrame(moveDuration, moveUpKV);
+            x = x + 72;
+            KeyValue moveRightSecondKV = new KeyValue(drone.getImage().translateXProperty(), x);
+            KeyFrame moveRightSecondKF = new KeyFrame(endDuration, moveRightSecondKV);
+            Timeline rotateDown = new Timeline(turnDown);
+            Timeline moveDown = new Timeline(endDownKF);
+            Timeline rotateRight = new Timeline(turnRight);
+            Timeline moveRight = new Timeline(moveRightKF);
+            Timeline rotateUp = new Timeline(turnUp);
+            Timeline moveUp = new Timeline(moveUpKF);
+            Timeline rotateRightSecond = new Timeline(turnRight);
+            Timeline moveRightSecond = new Timeline(moveRightSecondKF);
+            Timeline rotateDownSecond = new Timeline(turnDown);
 
-        KeyValue rotateDroneDown = new KeyValue(drone.getImage().rotateProperty(), drone.getImage().getRotate() + 90);
-        KeyFrame turnDown = new KeyFrame(endDuration, rotateDroneDown);
-        KeyValue endDownKV_Y = new KeyValue(drone.getImage().translateYProperty(), y);
-        KeyFrame endDownKF = new KeyFrame(moveDuration, endDownKV_Y);
-        KeyValue rotateDroneRight = new KeyValue(drone.getImage().rotateProperty(), drone.getImage().getRotate());
-        KeyFrame turnRight = new KeyFrame(endDuration, rotateDroneRight);
-        KeyValue moveRightKV = new KeyValue(drone.getImage().translateXProperty(), 72);
-        KeyFrame moveRightKF = new KeyFrame(endDuration, moveRightKV);
-        KeyValue rotateDroneUp = new KeyValue(drone.getImage().rotateProperty(), drone.getImage().getRotate()- 90);
-        KeyFrame turnUp = new KeyFrame(endDuration, rotateDroneUp);
-        KeyValue moveUpKV = new KeyValue(drone.getImage().translateYProperty(), 0);
-        KeyFrame moveUpKF = new KeyFrame(moveDuration, moveUpKV);
-        KeyValue moveRightSecondKV = new KeyValue(drone.getImage().translateXProperty(), 148);
-        KeyFrame moveRightSecondKF = new KeyFrame(endDuration, moveRightSecondKV);
-        KeyValue moveRightThirdKV = new KeyValue(drone.getImage().translateXProperty(), 220);
-        KeyFrame moveRightThirdKF = new KeyFrame(endDuration, moveRightThirdKV);
-        KeyValue moveRightFourthKV = new KeyValue(drone.getImage().translateXProperty(), 298);
-        KeyFrame moveRightFourthKF = new KeyFrame(endDuration, moveRightFourthKV);
-
-        Timeline rotateDown = new Timeline(turnDown);
-        moveDown = new Timeline(endDownKF);
-        Timeline rotateRight = new Timeline(turnRight);
-        Timeline moveRight = new Timeline(moveRightKF);
-        Timeline rotateUp = new Timeline(turnUp);
-        Timeline moveUp = new Timeline(moveUpKF);
-        Timeline rotateRightSecond = new Timeline(turnRight);
-        Timeline moveRightSecond = new Timeline(moveRightSecondKF);
-        Timeline rotateDownSecond = new Timeline(turnDown);
-        Timeline moveDownSecond = new Timeline(endDownKF);
-        Timeline rotateRightThird = new Timeline(turnRight);
-        Timeline moveRightThird = new Timeline(moveRightThirdKF);
-        Timeline rotateUpSecond = new Timeline(turnUp);
-        Timeline moveUpSecond = new Timeline(moveUpKF);
-        Timeline rotateRightFourth = new Timeline(turnRight);
-        Timeline moveRightFourth = new Timeline(moveRightFourthKF);
-
-        sequence = new SequentialTransition(
-                rotateDown,
-                moveDown,
-                rotateRight,
-                moveRight,
-                rotateUp,
-                moveUp,
-                rotateRightSecond,
-                moveRightSecond,
-                rotateDownSecond,
-                moveDownSecond,
-                rotateRightThird,
-                moveRightThird,
-                rotateUpSecond,
-                moveUpSecond,
-                rotateRightFourth,
-                moveRightFourth
-        );
-
-
-        sequence.setCycleCount(1);
+            sequence.getChildren().addAll(rotateDown,
+                    moveDown,
+                    rotateRight,
+                    moveRight,
+                    rotateUp,
+                    moveUp,
+                    rotateRightSecond,
+                    moveRightSecond,
+                    rotateDownSecond);
+            x = x + 72;
+            System.out.println(x);
+        }
         sequence.play();
 
-        int numSteps = (int) Math.ceil(sceneWidth / droneWidth) + 1;
-
-
-//        for (int i = 0; i < numSteps - 1; i++) {
-//
-//            x = (i % 2 != 0) ? i * droneWidth : x; // Alternate between move one drone width over every 2 iterations
-//            y = (i % 4 < 2) ? sceneHeight - droneHeight : 0; // Alternate between top and bottom every 2 iterations
-//            //System.out.println(x + " " + y);
-//            KeyValue kv = new KeyValue(drone.getImage().translateXProperty(), x);
-//            KeyValue kv2 = new KeyValue(drone.getImage().translateYProperty(), y);
-//            KeyValue rotateDown = new KeyValue(drone.getImage().rotateProperty(),drone.getImage().getRotate() - 90);
-//            KeyFrame endRotateDown = new KeyFrame(endDuration, rotateDown);
-//            KeyValue rotateUp = new KeyValue(drone.getImage().rotateProperty(),drone.getImage().getRotate() - 180);
-//            KeyFrame endRotateUp = new KeyFrame(endDuration, rotateUp);
-//
-//
-//
-//
-//            KeyFrame kf = new KeyFrame(endDuration.multiply((i + 1.0) / numSteps), kv, kv2);
-//            droneMovement.getKeyFrames().add(kf);
-//        }
 
         });
 
