@@ -591,7 +591,6 @@ public class DroneDashboardController implements Initializable {
                     moveRightSecond,
                     rotateDownSecond);
             x = x + 72;
-            System.out.println(x);
         }
         sequence.play();
 
