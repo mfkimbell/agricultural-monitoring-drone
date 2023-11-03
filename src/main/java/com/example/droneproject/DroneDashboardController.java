@@ -542,7 +542,7 @@ public class DroneDashboardController implements Initializable {
 
         double y = sceneHeight - droneHeight - 15;
         double x = 72;
-
+        drone.getImage().setRotate(0);
         drone.getImage().setX(0);
         SequentialTransition sequence = new SequentialTransition();
         for(int i =0; i <= 5; i++) {
