@@ -597,6 +597,52 @@ public class DroneDashboardController implements Initializable {
 
 
         });
+        visitDroneButton.setOnAction(event -> {
+            float droneStartX = drone.getX();
+            float droneStartY = drone.getX();
+
+            TreeItem selectedItem = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
+            float x = 0;
+            float y = 0;
+
+            Duration moveDuration = Duration.seconds(2);
+            Duration endDuration = Duration.seconds(2);
+
+            if (selectedItem.getValue() instanceof FarmBuilding){
+                FarmBuilding fb = (FarmBuilding) selectedItem.getValue();
+                x = fb.getLocationX();
+                y = fb.getLocationY();
+            }
+
+            if (selectedItem.getValue() instanceof FarmItem){
+                FarmItem fi = (FarmItem) selectedItem.getValue();
+                x = fi.getLocationX();
+                y = fi.getLocationY();
+            }
+
+            KeyValue moveXKV = new KeyValue(drone.getImage().translateXProperty(), x);
+            KeyFrame moveXKF = new KeyFrame(moveDuration, moveXKV);
+
+
+            KeyValue moveYKV = new KeyValue(drone.getImage().translateYProperty(), y);
+            KeyFrame moveYKF = new KeyFrame(moveDuration, moveYKV);
+
+            KeyValue moveStartXKV = new KeyValue(drone.getImage().translateXProperty(), droneStartX);
+            KeyFrame moveStartXKF = new KeyFrame(endDuration, moveStartXKV);
+
+            KeyValue moveStartYKV = new KeyValue(drone.getImage().translateYProperty(), droneStartY);
+            KeyFrame moveStartYKF = new KeyFrame(endDuration, moveStartYKV);
+
+            Timeline moveX = new Timeline(moveXKF);
+            Timeline moveY = new Timeline(moveYKF);
+            Timeline moveStartX = new Timeline(moveStartXKF);
+            Timeline moveStartY = new Timeline(moveStartYKF);
+
+            SequentialTransition sequence = new SequentialTransition(moveX, moveY, moveStartX, moveStartY);
+
+            sequence.setCycleCount(1);
+            sequence.play();
+        });
 
         rootItem.getChildren().clear();
         for(FarmObject i: farmObjects){
