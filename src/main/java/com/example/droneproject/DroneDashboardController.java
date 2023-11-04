@@ -660,7 +660,6 @@ public class DroneDashboardController implements Initializable {
 
             sequence.setCycleCount(1);
             sequence.play();
-            System.out.println(drone.getImage().getTranslateX() + ", " + drone.getImage().getTranslateY());
         });
 
         homeButton.setOnAction(event -> {
