@@ -487,6 +487,7 @@ public class DroneDashboardController implements Initializable {
                 if (selection.getValue() instanceof FarmItem) {
 
                     mapview.getChildren().remove(((FarmItem) selection.getValue()).getPerimeter());
+                    mapview.getChildren().remove(((FarmItem) selection.getValue()).getLabel());
 
                     ((FarmItem) selection.getValue()).changeLocationX(Float.parseFloat(x.getText()));
                     ((FarmItem) selection.getValue()).changeLocationY(Float.parseFloat(y.getText()));
@@ -494,10 +495,12 @@ public class DroneDashboardController implements Initializable {
 
                     Rectangle newRect = drawPerimeter((FarmItem) selection.getValue());
                     ((FarmItem) selection.getValue()).setPerimeter(newRect);
+                    ((FarmItem) selection.getValue()).setLabel(addLabel((FarmItem) selection.getValue()));
                 }
                 if (selection.getValue() instanceof FarmBuilding) {
 
                     mapview.getChildren().remove(((FarmBuilding) selection.getValue()).getPerimeter());
+                    mapview.getChildren().remove(((FarmBuilding) selection.getValue()).getLabel());
 
                     ((FarmBuilding) selection.getValue()).changeLocationX(Float.parseFloat(x.getText()));
                     ((FarmBuilding) selection.getValue()).changeLocationY(Float.parseFloat(y.getText()));
@@ -506,6 +509,7 @@ public class DroneDashboardController implements Initializable {
 
                     Rectangle newRect = drawPerimeter((FarmBuilding) selection.getValue());
                     ((FarmBuilding) selection.getValue()).setPerimeter(newRect);
+                    ((FarmBuilding) selection.getValue()).setLabel(addLabel((FarmBuilding) selection.getValue()));
                 }
                 newItemDialog.close();
             });
