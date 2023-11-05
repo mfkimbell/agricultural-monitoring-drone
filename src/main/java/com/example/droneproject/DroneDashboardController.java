@@ -306,9 +306,21 @@ public class DroneDashboardController implements Initializable {
                 }
             }
             if(obj.equals(target) && target instanceof FarmBuilding) {
+                /* Delete children shapes */
+                FarmBuilding fb = (FarmBuilding) obj;
+
+                for (ItemContainer child: fb.getItemContainers()){
+                    mapview.getChildren().remove(((FarmBuilding) child).getPerimeter());
+                }
+
+                for (Item child: fb.getItems()){
+                    mapview.getChildren().remove(((FarmItem) child).getPerimeter());
+                }
+
                 mapview.getChildren().remove(((FarmBuilding) target).getPerimeter());
                 farm_arr.remove(target);
                 return;
+
             } else if(obj.equals(target) && target instanceof FarmItem){
                 mapview.getChildren().remove(((FarmItem) target).getPerimeter());
                 farm_arr.remove(target);
