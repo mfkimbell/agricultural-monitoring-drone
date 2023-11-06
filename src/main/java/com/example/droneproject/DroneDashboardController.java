@@ -250,7 +250,6 @@ public class DroneDashboardController implements Initializable {
     public void handleMouseClicked(MouseEvent mouseEvent) {
         currentAction = itemOptions.getSelectionModel().getSelectedItem();
         if (currentAction == "Item Root Commands"){
-            System.out.println("Insert Root Actions Commands");
         }
         if (currentAction == "Add Item"){
             TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
@@ -408,9 +407,6 @@ public class DroneDashboardController implements Initializable {
                     ((FarmBuilding) selection.getValue()).setPerimeter(newRect);
                     ((FarmBuilding) selection.getValue()).setLabel(addLabel((FarmBuilding) selection.getValue()));
 
-                    System.out.println(((FarmBuilding) selection.getValue()).getLength());
-                    System.out.println(((FarmBuilding) selection.getValue()).getWidth());
-                    System.out.println(((FarmBuilding) selection.getValue()).getHeight());
                 }
                 newItemDialog.close();
             });
@@ -504,8 +500,6 @@ public class DroneDashboardController implements Initializable {
 
                     ((FarmBuilding) selection.getValue()).changeLocationX(Float.parseFloat(x.getText()));
                     ((FarmBuilding) selection.getValue()).changeLocationY(Float.parseFloat(y.getText()));
-                    System.out.println(((FarmBuilding) selection.getValue()).getLocationX());
-                    System.out.println(((FarmBuilding) selection.getValue()).getLocationY());
 
                     Rectangle newRect = drawPerimeter((FarmBuilding) selection.getValue());
                     ((FarmBuilding) selection.getValue()).setPerimeter(newRect);
