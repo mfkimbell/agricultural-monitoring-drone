@@ -9,7 +9,7 @@ ___
 * `Github Issues` For team collaboration and Agile methodology
 
 ### Objective
-The purpose of this project was to create an application that allows people in the agriculture industry to map out areas of land and allow for automated drones to survery the designated land. To do this, we created a UI that allows a user to map out and define areas, and then a drone associated with the application will go and survery the designated areas. 
+The purpose of this project was to create an application that allows people in the agriculture industry to map out areas of land and allow for automated drones to survey the designated land. To do this, we created a UI that allows a user to map out and define areas, and then a drone associated with the application will go and survey the designated areas. 
 
 ### How to run the program
 * Install JDK-21
@@ -52,7 +52,7 @@ public class Drone extends FarmItem{
 **Composite Pattern:**
 Composite Pattern:
 The Composite design pattern is a structural pattern used to compose objects into tree structures to represent part-whole hierarchies. It allows clients to treat individual objects and compositions of objects uniformly. This pattern is especially useful when you need to work with complex hierarchical structures, such as a directory structure in a file system or a graphic user interface with nested components.
-In the Composite pattern, you typically have a common interface or base class that both leaf and composite objects implement. Composite objects can contain other objects, including leaf objects and other composites. Clients interact with this structure without needing to differentiate between leaf and composite objects. In our project, we used our farm objects as composite since we needed a heirarchical structure to store nested containers and items. All the subclasses in the tree share the same type to build off of: "FarmObject".
+In the Composite pattern, you typically have a common interface or base class that both leaf and composite objects implement. Composite objects can contain other objects, including leaf objects and other composites. Clients interact with this structure without needing to differentiate between leaf and composite objects. In our project, we used our farm objects as composite since we needed a hierarchical structure to store nested containers and items. All the subclasses in the tree share the same type to build off of: "FarmObject".
 
 
 
