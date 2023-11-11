@@ -24,6 +24,8 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class DroneDashboardController implements Initializable {
     //create timeline for drone
@@ -360,6 +362,7 @@ public class DroneDashboardController implements Initializable {
         MenuItem price = new MenuItem("Change Price");
         MenuItem dimensions = new MenuItem("Change Dimensions");
         MenuItem delete = new MenuItem("Delete");
+        MenuItem marketValue = new MenuItem("Change Market Value");
 
         delete.setOnAction(event -> {
             TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
@@ -451,6 +454,26 @@ public class DroneDashboardController implements Initializable {
             itemTree.refresh();
         });
 
+        marketValue.setOnAction(event -> {
+            TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
+            TextInputDialog inputDialog = new TextInputDialog();
+            if (selection.getValue() instanceof FarmItem) {
+                inputDialog.setTitle("Edit");
+                inputDialog.setHeaderText(null); // Remove the header text
+                inputDialog.setContentText("New Market Value:");
+                inputDialog.setGraphic(null); // Remove the icon
+                String result = inputDialog.showAndWait().get();
+                ((FarmItem) selection.getValue()).setMarketValue(Float.parseFloat(result));
+            }
+            if (selection.getValue() instanceof FarmBuilding) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Can't change a Building's market value!");
+                alert.showAndWait();            }
+            itemTree.refresh();
+        });
+
         rename.setOnAction(event -> {
             TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
             TextInputDialog inputDialog = new TextInputDialog();
@@ -530,7 +553,7 @@ public class DroneDashboardController implements Initializable {
             itemTree.refresh();
         });
 
-        contextMenu.getItems().addAll(rename, location, price, dimensions, delete);
+        contextMenu.getItems().addAll(rename, location, price, dimensions, delete, marketValue);
         itemTree.setContextMenu(contextMenu);
     }
     @Override

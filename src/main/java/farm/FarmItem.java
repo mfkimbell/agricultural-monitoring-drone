@@ -7,15 +7,18 @@ public class FarmItem extends Item {
     private Rectangle perimeter;
     private Text label;
     private float marketValue;
-
     public Rectangle getPerimeter() {
         return perimeter;
     }
-
     public void setPerimeter(Rectangle perimeter) {
         this.perimeter = perimeter;
     }
-
+    public float getMarketValue() {
+        return marketValue;
+    }
+    public void setMarketValue(float marketValue) {
+        this.marketValue = marketValue;
+    }
     public Text getLabel() {
         return this.label;
     }
@@ -35,6 +38,7 @@ public class FarmItem extends Item {
         this.perimeter = perimeter;
         this.label = label;
     }
+
 
     public FarmItem() {
 
