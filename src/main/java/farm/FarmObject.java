@@ -66,4 +66,8 @@ public abstract class FarmObject implements FarmComponent {
     public float getWidth(){
         return this.width;
     }
+    @Override
+    public void accept(FarmVisitor visitor){
+        visitor.visit(this);
+    }
 }

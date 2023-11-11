@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class FarmBuilding extends ItemContainer{
     private Rectangle perimeter;
     private Text label;
+    private float marketValue;
 
     public void setPerimeter(Rectangle perimeter) {
         this.perimeter = perimeter;
@@ -24,9 +25,10 @@ public class FarmBuilding extends ItemContainer{
         this.label = label;
     }
 
-    public FarmBuilding(String name, float price, float x, float y, float length, float width, float height, Rectangle perimeter, Text label) {
+    public FarmBuilding(String name, float price, float marketValue, float x, float y, float length, float width, float height, Rectangle perimeter, Text label) {
         this.name = name;
         this.price = price;
+        this.marketValue = marketValue;
         this.locationX = x;
         this.locationY = y;
         this.items = new ArrayList<Item>();

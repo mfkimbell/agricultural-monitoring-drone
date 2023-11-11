@@ -8,4 +8,5 @@ interface FarmComponent {
     void changeLength(float length);
     void changeHeight(float height);
     void changeWidth(float width);
+    void accept(FarmVisitor visitor);
 }
