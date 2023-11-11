@@ -16,11 +16,11 @@ public class Drone extends FarmItem{
     private float height;
     private Rectangle rectangle;
 
-    private static Drone instance = new Drone("drone",0,0,0,0,0,0, new Rectangle(), new Text(), new ImageView());
+    private static Drone instance = new Drone("drone",0,0,0,0,0,0,0, new Rectangle(), new Text(), new ImageView());
 
 
-    private Drone(String name, float price, float x, float y, float length, float width, float height, Rectangle perimeter, Text label, ImageView image) {
-        super(name, price, x, y, length, width, height, perimeter, label);
+    private Drone(String name, float price, float marketValue, float x, float y, float length, float width, float height, Rectangle perimeter, Text label, ImageView image) {
+        super(name, price, marketValue, x, y, length, width, height, perimeter, label);
         this.image = image;
 
     }

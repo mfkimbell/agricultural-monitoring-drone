@@ -80,6 +80,7 @@ public class DroneDashboardController implements Initializable {
         Dialog<Boolean> newItemDialog = new Dialog();
         TextField itemNameField = new TextField();
         TextField itemPriceField = new TextField();
+        TextField itemMarketValueField = new TextField();
         TextField itemXField = new TextField();
         TextField itemYField = new TextField();
         TextField itemLengthField = new TextField();
@@ -98,6 +99,7 @@ public class DroneDashboardController implements Initializable {
             FarmItem values = new FarmItem(
                     itemNameField.getText(),
                     Float.parseFloat(itemPriceField.getText()),
+                    Float.parseFloat(itemMarketValueField.getText()),
                     Float.parseFloat(itemXField.getText()),
                     Float.parseFloat(itemYField.getText()),
                     Float.parseFloat(itemLengthField.getText()),
@@ -118,6 +120,7 @@ public class DroneDashboardController implements Initializable {
         txt.setFont(font);
         Label nameLabel = new Label("Name");
         Label priceLabel = new Label("Price");
+        Label marketValueLabel = new Label("Market Value");
         Label xLabel = new Label("X Coordinate");
         Label yLabel = new Label("Y Coordinate");
         Label lengthLabel = new Label("Length");
@@ -128,19 +131,21 @@ public class DroneDashboardController implements Initializable {
         fieldPane.add(txt,0,0);
         fieldPane.add(nameLabel, 0,1);
         fieldPane.add(priceLabel, 0,2);
-        fieldPane.add(xLabel, 0,3);
-        fieldPane.add(yLabel, 0,4);
-        fieldPane.add(lengthLabel, 0,5);
-        fieldPane.add(widthLabel, 0,6);
-        fieldPane.add(heightLabel, 0,7);
+        fieldPane.add(marketValueLabel, 0,3);
+        fieldPane.add(xLabel, 0,4);
+        fieldPane.add(yLabel, 0,5);
+        fieldPane.add(lengthLabel, 0,6);
+        fieldPane.add(widthLabel, 0,7);
+        fieldPane.add(heightLabel, 0,8);
         fieldPane.add(itemNameField,1,1);
         fieldPane.add(itemPriceField,1,2);
-        fieldPane.add(itemXField,1,3);
-        fieldPane.add(itemYField,1,4);
-        fieldPane.add(itemLengthField,1,5);
-        fieldPane.add(itemWidthField,1,6);
-        fieldPane.add(itemHeightField,1,7);
-        fieldPane.add(acceptButton, 0,9);
+        fieldPane.add(itemMarketValueField,1,3);
+        fieldPane.add(itemXField,1,4);
+        fieldPane.add(itemYField,1,5);
+        fieldPane.add(itemLengthField,1,6);
+        fieldPane.add(itemWidthField,1,7);
+        fieldPane.add(itemHeightField,1,8);
+        fieldPane.add(acceptButton, 0,10);
         pane.getChildren().add(fieldPane);
         newItemDialog.getDialogPane().setContent(pane);
         newItemDialog.showAndWait();
