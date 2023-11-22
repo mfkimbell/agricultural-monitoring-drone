@@ -7,6 +7,13 @@ public abstract class ItemContainer extends FarmObject {
     /* Vars */
     protected ArrayList<ItemContainer> itemContainers;
     protected ArrayList<Item> items;
+    protected float marketValue;
+    public void setMarketValue(float marketValue){
+        this.marketValue = marketValue;
+    }
+    public float getMarketValue() {
+        return marketValue;
+    }
 
     /* Methods */
     public ArrayList<ItemContainer> getItemContainers() {

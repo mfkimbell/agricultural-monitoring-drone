@@ -3,21 +3,21 @@
 ___
 **Members:** ___Kai Battle, Mitchell Kimbell, McKinley Morris, Jayden Pyles___
 
-### Tools Used:
+## Tools Used:
 * `Java` Main logic for program
 * `JavaFX` Used for its reusable components to produce an interactive UI
 * `Github Issues` For team collaboration and Agile methodology
 
-### Objective
+## Objective
 The purpose of this project was to create an application that allows people in the agriculture industry to map out areas of land and allow for automated drones to survey the designated land. To do this, we created a UI that allows a user to map out and define areas, and then a drone associated with the application will go and survey the designated areas. 
 
-### How to run the program
+## How to run the program
 * Install JDK-21
 * Install IDE with maven plugin
 * Clone the [github repo](https://github.com/mfkimbell/agricultural-monitoring-drone)
 * Build and run DroneDashboardApplication in the IDE
 
-### Design Patterns
+## Design Patterns
 **Singleton Pattern:**
 The Singleton design pattern ensures that a class has only one instance, and it provides a global point of access to that instance. This is useful when you want to control the creation of a single, shared instance of a class throughout your application. It is often used for managing resources, configuration settings, or any other situation where you need to ensure that there is only one instance of a class.
 
@@ -56,8 +56,43 @@ In the Composite pattern, you typically have a common interface or base class th
 
 
 
-### Resources
+## Resources
 [SceneBuilder](https://gluonhq.com/products/scene-builder/)\
 [JavaFX](https://openjfx.io/)\
 [GitHub](https://github.com/mfkimbell/agricultural-monitoring-drone)
+
+## Demo
+
+### Opening Screen:
+
+![image](https://github.com/mfkimbell/agricultural-monitoring-drone/assets/107063397/fdb174ad-2cfc-4c0f-ad7c-7630f94981b4)
+
+### Adding a Container: 
+![image](https://github.com/mfkimbell/agricultural-monitoring-drone/assets/107063397/9cf5f573-bd1f-4894-b04d-af78786af309)
+
+### Adding an Item:
+![image](https://github.com/mfkimbell/agricultural-monitoring-drone/assets/107063397/1fb47636-8e1f-47e4-8cf7-aa4ecb43361c)
+
+
+### Changing existing Item/Container dimensions:
+![image](https://github.com/mfkimbell/agricultural-monitoring-drone/assets/107063397/391a25c1-d21e-4f7f-9336-92352f2bd188)
+
+
+### Changing existing Item/Container location:
+![image](https://github.com/mfkimbell/agricultural-monitoring-drone/assets/107063397/73040a3a-1e16-41d0-8e9a-cd9bc13af250)
+
+
+### Sending drone to Item/Container Location:
+![image](https://github.com/mfkimbell/agricultural-monitoring-drone/assets/107063397/3e8e94f8-5cec-402e-97ed-3a3781ab1629)
+
+### Returning drone to command center:
+![image](https://github.com/mfkimbell/agricultural-monitoring-drone/assets/107063397/8461f35c-ac57-4275-8011-69bcade48871)
+
+### Drone Scanning entire farm area:
+![image](https://github.com/mfkimbell/agricultural-monitoring-drone/assets/107063397/afaf80d4-6260-47f4-a63f-ddaaa0e062ca)
+
+
+
+
+
 

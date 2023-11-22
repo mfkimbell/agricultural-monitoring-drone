@@ -30,6 +30,8 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class DroneDashboardController implements Initializable {
     //create timeline for drone
@@ -86,6 +88,7 @@ public class DroneDashboardController implements Initializable {
         Dialog<Boolean> newItemDialog = new Dialog();
         TextField itemNameField = new TextField();
         TextField itemPriceField = new TextField();
+        TextField itemMarketValueField = new TextField();
         TextField itemXField = new TextField();
         TextField itemYField = new TextField();
         TextField itemLengthField = new TextField();
@@ -104,6 +107,7 @@ public class DroneDashboardController implements Initializable {
             FarmItem values = new FarmItem(
                     itemNameField.getText(),
                     Float.parseFloat(itemPriceField.getText()),
+                    Float.parseFloat(itemMarketValueField.getText()),
                     Float.parseFloat(itemXField.getText()),
                     Float.parseFloat(itemYField.getText()),
                     Float.parseFloat(itemLengthField.getText()),
@@ -124,6 +128,7 @@ public class DroneDashboardController implements Initializable {
         txt.setFont(font);
         Label nameLabel = new Label("Name");
         Label priceLabel = new Label("Price");
+        Label marketValueLabel = new Label("Market Value");
         Label xLabel = new Label("X Coordinate");
         Label yLabel = new Label("Y Coordinate");
         Label lengthLabel = new Label("Length");
@@ -134,19 +139,21 @@ public class DroneDashboardController implements Initializable {
         fieldPane.add(txt,0,0);
         fieldPane.add(nameLabel, 0,1);
         fieldPane.add(priceLabel, 0,2);
-        fieldPane.add(xLabel, 0,3);
-        fieldPane.add(yLabel, 0,4);
-        fieldPane.add(lengthLabel, 0,5);
-        fieldPane.add(widthLabel, 0,6);
-        fieldPane.add(heightLabel, 0,7);
+        fieldPane.add(marketValueLabel, 0,3);
+        fieldPane.add(xLabel, 0,4);
+        fieldPane.add(yLabel, 0,5);
+        fieldPane.add(lengthLabel, 0,6);
+        fieldPane.add(widthLabel, 0,7);
+        fieldPane.add(heightLabel, 0,8);
         fieldPane.add(itemNameField,1,1);
         fieldPane.add(itemPriceField,1,2);
-        fieldPane.add(itemXField,1,3);
-        fieldPane.add(itemYField,1,4);
-        fieldPane.add(itemLengthField,1,5);
-        fieldPane.add(itemWidthField,1,6);
-        fieldPane.add(itemHeightField,1,7);
-        fieldPane.add(acceptButton, 0,9);
+        fieldPane.add(itemMarketValueField,1,3);
+        fieldPane.add(itemXField,1,4);
+        fieldPane.add(itemYField,1,5);
+        fieldPane.add(itemLengthField,1,6);
+        fieldPane.add(itemWidthField,1,7);
+        fieldPane.add(itemHeightField,1,8);
+        fieldPane.add(acceptButton, 0,10);
         pane.getChildren().add(fieldPane);
         newItemDialog.getDialogPane().setContent(pane);
         newItemDialog.showAndWait();
@@ -157,6 +164,7 @@ public class DroneDashboardController implements Initializable {
         Dialog<Boolean> newItemDialog = new Dialog();
         TextField itemNameField = new TextField();
         TextField itemPriceField = new TextField();
+        TextField itemMarketValueField = new TextField();
         TextField itemXField = new TextField();
         TextField itemYField = new TextField();
         TextField itemLengthField = new TextField();
@@ -175,6 +183,7 @@ public class DroneDashboardController implements Initializable {
             FarmBuilding values = new FarmBuilding(
                     itemNameField.getText(),
                     Float.parseFloat(itemPriceField.getText()),
+                    Float.parseFloat(itemMarketValueField.getText()),
                     Float.parseFloat(itemXField.getText()),
                     Float.parseFloat(itemYField.getText()),
                     Float.parseFloat(itemLengthField.getText()),
@@ -194,6 +203,7 @@ public class DroneDashboardController implements Initializable {
         txt.setFont(font);
         Label nameLabel = new Label("Name");
         Label priceLabel = new Label("Price");
+        Label marketValueLabel = new Label("Market Value");
         Label xLabel = new Label("X Coordinate");
         Label yLabel = new Label("Y Coordinate");
         Label lengthLabel = new Label("Length");
@@ -204,19 +214,21 @@ public class DroneDashboardController implements Initializable {
         fieldPane.add(txt,0,0);
         fieldPane.add(nameLabel, 0,1);
         fieldPane.add(priceLabel, 0,2);
-        fieldPane.add(xLabel, 0,3);
-        fieldPane.add(yLabel, 0,4);
-        fieldPane.add(lengthLabel, 0,5);
-        fieldPane.add(widthLabel, 0,6);
-        fieldPane.add(heightLabel, 0,7);
+        fieldPane.add(marketValueLabel, 0,3);
+        fieldPane.add(xLabel, 0,4);
+        fieldPane.add(yLabel, 0,5);
+        fieldPane.add(lengthLabel, 0,6);
+        fieldPane.add(widthLabel, 0,7);
+        fieldPane.add(heightLabel, 0,8);
         fieldPane.add(itemNameField,1,1);
         fieldPane.add(itemPriceField,1,2);
-        fieldPane.add(itemXField,1,3);
-        fieldPane.add(itemYField,1,4);
-        fieldPane.add(itemLengthField,1,5);
-        fieldPane.add(itemWidthField,1,6);
-        fieldPane.add(itemHeightField,1,7);
-        fieldPane.add(acceptButton, 0,9);
+        fieldPane.add(itemMarketValueField,1,3);
+        fieldPane.add(itemXField,1,4);
+        fieldPane.add(itemYField,1,5);
+        fieldPane.add(itemLengthField,1,6);
+        fieldPane.add(itemWidthField,1,7);
+        fieldPane.add(itemHeightField,1,8);
+        fieldPane.add(acceptButton, 0,10);
         pane.getChildren().add(fieldPane);
         newItemDialog.getDialogPane().setContent(pane);
         newItemDialog.showAndWait();
@@ -251,6 +263,12 @@ public class DroneDashboardController implements Initializable {
 
     @FXML
     private TreeView itemTree;
+
+    @FXML
+    private Label priceLabel;
+
+    @FXML
+    private Label marketValueLabel;
 
     @FXML
     public void handleMouseClicked(MouseEvent mouseEvent) {
@@ -361,6 +379,7 @@ public class DroneDashboardController implements Initializable {
         MenuItem price = new MenuItem("Change Price");
         MenuItem dimensions = new MenuItem("Change Dimensions");
         MenuItem delete = new MenuItem("Delete");
+        MenuItem marketValue = new MenuItem("Change Market Value");
 
         delete.setOnAction(event -> {
             TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
@@ -452,6 +471,26 @@ public class DroneDashboardController implements Initializable {
             itemTree.refresh();
         });
 
+        marketValue.setOnAction(event -> {
+            TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
+            TextInputDialog inputDialog = new TextInputDialog();
+            if (selection.getValue() instanceof FarmItem) {
+                inputDialog.setTitle("Edit");
+                inputDialog.setHeaderText(null); // Remove the header text
+                inputDialog.setContentText("New Market Value:");
+                inputDialog.setGraphic(null); // Remove the icon
+                String result = inputDialog.showAndWait().get();
+                ((FarmItem) selection.getValue()).setMarketValue(Float.parseFloat(result));
+            }
+            if (selection.getValue() instanceof FarmBuilding) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Can't change a Building's market value!");
+                alert.showAndWait();            }
+            itemTree.refresh();
+        });
+
         rename.setOnAction(event -> {
             TreeItem selection = (TreeItem) itemTree.getSelectionModel().getSelectedItem();
             TextInputDialog inputDialog = new TextInputDialog();
@@ -531,17 +570,33 @@ public class DroneDashboardController implements Initializable {
             itemTree.refresh();
         });
 
-        contextMenu.getItems().addAll(rename, location, price, dimensions, delete);
+        contextMenu.getItems().addAll(rename, location, price, dimensions, delete, marketValue);
         itemTree.setContextMenu(contextMenu);
+    }
+
+    public void handleTreeClick(TreeItem i){
+        MarketPriceCalculator calculator = new MarketPriceCalculator();
+        FarmObject obj = (FarmObject) i.getValue();
+        obj.accept(calculator);
+
+        priceLabel.setText("Purchase Price: " + calculator.getPrice());
+        marketValueLabel.setText("Market Value: " + calculator.getMarketValue());
+    }
+    public void configureTreeListener(TreeView t) {
+        t.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null) {
+                handleTreeClick((TreeItem) newValue);
+            }
+        });
+
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         ArrayList optionList = new ArrayList<>();
-        optionList.add("Item Root Commands");
         optionList.add("Add Item Container");
         optionList.add("Add Item");
-        itemOptions.getItems().addAll(optionList.get(0), optionList.get(1), optionList.get(2));
+        itemOptions.getItems().addAll(optionList.get(0), optionList.get(1));
 
 
         // Init item tree root
@@ -555,7 +610,8 @@ public class DroneDashboardController implements Initializable {
         droneImage.setY(15);
 
         configureContextMenu();
-        FarmBuilding commandCenter = new FarmBuilding("Command Center", 2000, 0, 0, 100, 100, 100, new Rectangle(), new Text());
+        configureTreeListener(itemTree);
+        FarmBuilding commandCenter = new FarmBuilding("Command Center", 2000, 0, 0, 0, 100, 100, 100, new Rectangle(), new Text());
         Rectangle rect = drawPerimeter(commandCenter);
         commandCenter.setLabel(addLabel(commandCenter));
         commandCenter.setPerimeter(rect);
