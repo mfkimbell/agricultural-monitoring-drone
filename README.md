@@ -1,4 +1,4 @@
-# CS 420 Drone Project
+# Agricultural Drone Project
 
 ___
 **Members:** ___Kai Battle, Mitchell Kimbell, McKinley Morris, Jayden Pyles___
@@ -7,6 +7,7 @@ ___
 * `Java` Main logic for program
 * `JavaFX` Used for its reusable components to produce an interactive UI
 * `Github Issues` For team collaboration and Agile methodology
+* `Tello API` For connecting to the drone and allow for scripting of movments
 
 ## Objective
 The purpose of this project was to create an application that allows people in the agriculture industry to map out areas of land and allow for automated drones to survey the designated land. To do this, we created a UI that allows a user to map out and define areas, and then a drone associated with the application will go and survey the designated areas. 
@@ -22,7 +23,7 @@ The purpose of this project was to create an application that allows people in t
 The Singleton design pattern ensures that a class has only one instance, and it provides a global point of access to that instance. This is useful when you want to control the creation of a single, shared instance of a class throughout your application. It is often used for managing resources, configuration settings, or any other situation where you need to ensure that there is only one instance of a class.
 
 In our project, we implemented the singleton pattern for the drone object, so that all references to the drone refer to the same object:
-```
+``` java
 public class Drone extends FarmItem{
     
     private ImageView image;
