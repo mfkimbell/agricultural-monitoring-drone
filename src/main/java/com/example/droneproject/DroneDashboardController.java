@@ -1,6 +1,8 @@
 package com.example.droneproject;
 
 import farm.*;
+import tello.ScanFarm;
+import tello.VisitItem;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.SequentialTransition;
@@ -20,6 +22,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.control.Button;
@@ -571,6 +577,19 @@ public class DroneDashboardController implements Initializable {
 
         mapview.getChildren().addAll(drone.getImage());
 
+        scanDroneButton.setOnAction(event -> {
+            final Logger logger = Logger.getGlobal();
+            final ConsoleHandler handler = new ConsoleHandler();
+            logger.addHandler(handler);
+            logger.setUseParentHandlers(false);
+            logger.setLevel(Level.FINE);
+            handler.setLevel(Level.FINE);
+
+            logger.info("start");
+            ScanFarm scan = new ScanFarm();
+            scan.execute();
+        });
+
         // Button Handlers
         scanImageButton.setOnAction(event -> {
 
@@ -680,6 +699,9 @@ public class DroneDashboardController implements Initializable {
                 x = ((fi.getLocationX() + (fi.getLocationX() + fi.getWidth()))/2) - 50;
                 y = ((fi.getLocationY() + (fi.getLocationY() + fi.getHeight()))/2)- 50;
             }
+
+            VisitItem visit = new VisitItem();
+            visit.execute(drone, x ,y);
 
             KeyValue moveXKV = new KeyValue(drone.getImage().translateXProperty(), x);
             KeyFrame moveXKF = new KeyFrame(moveDuration, moveXKV);
