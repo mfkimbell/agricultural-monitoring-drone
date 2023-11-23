@@ -7,8 +7,10 @@ Clips of the drone in action:
 
 ScanFarm()
 
+![ezgif com-gif-maker](https://github.com/mfkimbell/agricultural-monitoring-drone/assets/107063397/6a30815c-813b-4cfa-ace1-1598983f2ac9)
 
 VisitItem()
+
 ![ezgif com-gif-maker](https://github.com/mfkimbell/agricultural-monitoring-drone/assets/107063397/f5af4f40-b4ac-4896-a5f0-09fcab2caf48)
 
 
