@@ -3,6 +3,7 @@ package com.example.droneproject;
 import farm.*;
 import tello.ScanFarm;
 import tello.VisitItem;
+import tello.GoHome;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.SequentialTransition;
@@ -783,6 +784,9 @@ public class DroneDashboardController implements Initializable {
         });
 
         homeButton.setOnAction(event -> {
+
+            GoHome home = new GoHome();
+            home.execute(drone);
 
             drone.getImage().setRotate(0);
 

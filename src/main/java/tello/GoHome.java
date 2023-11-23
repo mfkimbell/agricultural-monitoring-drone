@@ -1,5 +1,6 @@
 package tello;
 
+import farm.Drone;
 import tellolib.communication.TelloConnection;
 import tellolib.control.TelloControl;
 import tellolib.drone.TelloDrone;
@@ -7,13 +8,21 @@ import tellolib.drone.TelloDrone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ScanFarm
+import static java.lang.Math.abs;
+
+public class GoHome
 {
+
     private final Logger logger = Logger.getGlobal();
 
-    public void execute()
+    public void execute(Drone droneInfo)
     {
         logger.info("start");
+        double locationX = -1*(droneInfo.getX())/5;
+        double locationY = -1*(droneInfo.getY())/5;
+        logger.info("X distance" + String.valueOf(locationX));
+        logger.info("Y distance" + String.valueOf(locationY));
+
 
         TelloControl telloControl = TelloControl.getInstance();
 
@@ -21,7 +30,8 @@ public class ScanFarm
 
         telloControl.setLogLevel(Level.FINE);
 
-        try {
+        try
+        {
             telloControl.connect();
 
             telloControl.enterCommandMode();
@@ -38,40 +48,26 @@ public class ScanFarm
             // Now we will execute a series of movement commands.
             // Distances in centimeters.
 
-            for (int i = 0; i < 5; i++) {
-
-                telloControl.rotateRight(90);
-
-                telloControl.forward(120);
-
-                telloControl.rotateLeft(90);
-
-                telloControl.forward(20);
-
-                telloControl.rotateLeft(90);
-
-                telloControl.forward(120);
-
-                telloControl.rotateRight(90);
-
-                telloControl.forward(20);
-
-                String s = String.valueOf(i);
-
-                logger.info("i:" + s);
+            if (locationY < 0) {
+                telloControl.rotateRight(180);
 
             }
 
-            //return to base
-
-            telloControl.rotateRight(180);
-            telloControl.forward(200);
-            telloControl.rotateRight(180);
+            telloControl.forward(abs(Integer.valueOf((int) locationY)));
 
 
 
-            // fly a curve to a point 3.25 feet in front of the drone and
-            // 1.5 feet higher.
+            if (locationX < 0) {
+                telloControl.rotateLeft(90);
+                telloControl.forward(abs(Integer.valueOf((int) locationY)));
+                telloControl.rotateRight(90);
+            } else {
+                telloControl.rotateRight(90);
+                telloControl.forward(abs(Integer.valueOf((int) locationY)));
+                telloControl.rotateLeft(90);
+
+            }
+
 
 
             //telloControl.doFlip(TelloFlip.backward);
