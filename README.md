@@ -3,6 +3,16 @@
 ___
 **Members:** ___Kai Battle, Mitchell Kimbell, McKinley Morris, Jayden Pyles___
 
+Clips of the drone in action:
+
+ScanFarm()
+
+
+VisitItem()
+![ezgif com-gif-maker](https://github.com/mfkimbell/agricultural-monitoring-drone/assets/107063397/f5af4f40-b4ac-4896-a5f0-09fcab2caf48)
+
+
+
 ## Tools Used:
 * `Java` Main logic for program
 * `JavaFX` Used for its reusable components to produce an interactive UI
