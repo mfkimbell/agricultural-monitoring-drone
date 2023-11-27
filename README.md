@@ -3,6 +3,11 @@
 ___
 **Members:** ___Kai Battle, Mitchell Kimbell, McKinley Morris, Jayden Pyles___
 
+Drone starting position:
+
+<img width="250" alt="workflow devops" src="https://github.com/mfkimbell/agricultural-monitoring-drone/assets/107063397/fde68d86-5d7d-46cf-8ff8-733b92957059">
+
+
 Clips of the drone in action:
 
 ScanFarm()
