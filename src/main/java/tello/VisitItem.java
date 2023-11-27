@@ -55,6 +55,11 @@ public class VisitItem
 
             telloControl.forward(abs(Integer.valueOf((int) locationY)));
 
+            if (locationY < 0) {
+                telloControl.rotateRight(180);
+
+            }
+
 
 
             if (locationX < 0) {
